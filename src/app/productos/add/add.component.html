@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+        <ion-title>
+            Agregar productos
+        </ion-title>
+    <ion-buttons slot="end"  *ngIf="prodS?.selectProduc?.idproductos">
+        <ion-button ion-button size="large" (click)="goToPrecios()">
+            <ion-icon style="font-size: 1.8em;color: #28a745;" name="logo-usd"></ion-icon>
+          </ion-button>
+        <ion-button ion-button size="large" >
+          <ion-icon style="font-size: 1.8em;" name="md-create"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="addForm">
+    <ion-item>
+      <ion-label position="floating">Nombre. <span class="required">*</span></ion-label>
+      <ion-input formControlName="nombre"
+        [(ngModel)]="nombre"
+        name="nombre"
+        type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Descripcion. <span class="required">*</span></ion-label>
+        <ion-input formControlName="descripcion"
+        [(ngModel)]="descripcion"
+          name="descripcion"
+          type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <div class="image-produt">
+        <img (tap)="takePicture()" [src]="base64Image">
+      </div>
+    </ion-item>
+  </form>
+
+  <p text-center>
+    <ion-button large expand="full" [disabled]="!addForm.valid || submitAttempt" (tap)="save()" class="save">Guardar</ion-button>
+  </p>
+  <p text-center>
+    <ion-button large color="danger" expand="full" (tap)="close()" class="dismiss">Cerrar</ion-button>
+  </p>
+</ion-content>

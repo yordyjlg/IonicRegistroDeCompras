@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>cambios</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list padding>
+    <ion-item *ngFor="let cambio of cambioS.localCambios">
+      <div class="item-cambio">
+        <div class="moneda">
+          <div class="usd">
+              <ion-icon name="logo-usd"></ion-icon>
+              <span>{{cambio.usd}}</span>
+          </div>
+          <div class="tasa">
+              <span class="custom-icon">Bs </span>
+              <span>{{cambio.tasa}}</span>
+          </div>
+        </div>
+        <div class="nota" *ngIf="cambio.nota">
+          {{cambio.nota}}
+        </div>
+        <div class="date">
+          <div>
+              {{cambio.date | date:'longDate'}}
+          </div>
+          <div class="total">
+              <span class="custom-icon">Bs </span>
+              {{cambio.usd * cambio.tasa}}
+          </div>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="showAddCambio()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>

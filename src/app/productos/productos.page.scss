@@ -1,0 +1,83 @@
+ion-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    ion-item{
+        width: calc(50vw - 24px) !important;
+        height: calc(50vw - 24px);
+        border: none !important;
+        box-shadow: 0 3px 6px rgba(0,0,0, 0.16), 0 3px 6px rgba(0,0,0,0.23) !important;
+        margin-bottom: 16px !important;
+        --inner-padding-top: 0;
+        --inner-padding-bottom: 0;
+        --inner-padding-end: 0;
+        --inner-padding-start: 0;
+        --ion-safe-area-right: 0;
+        --ion-safe-area-left: 0;
+        --padding-top: 0;
+        --padding-end: 0;
+        --padding-bottom: 0;
+        --padding-start: 0;
+
+        .item-native{
+            padding: 0px !important;
+        }
+
+        .item-inner{
+            border: none !important;
+            padding: 0px !important;
+        }
+
+        .input-wrapper{
+            text-align: center;
+        }
+
+        &.selected-list{
+            background-color: #DDD;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.6) !important;
+            transition: background-color 0.3s ease-out;
+        }
+
+        .container-product{
+            width: 100%;
+            height: calc(50vw - 24px);
+        }
+
+        .container-icons{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0px;
+            color: #fff;
+
+            ion-icon{
+                padding: 5px;
+                font-size: 18px;
+                background: rgba(255, 255, 255, 0.3);
+                border-radius: 5px;
+                margin-left: 2px;
+                margin-top: 2px;
+            }
+
+            .trash{
+                color: #dc3545;
+            }
+        }
+
+        .tittle-product{
+            position: absolute; 
+            left: 0; 
+            right: 0; 
+            /* margin-left: auto; 
+            margin-right: auto; 
+            width: 100px; */
+            text-align: center;
+            bottom: 0px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            max-height: 50%;
+        }
+
+    }
+}

@@ -1,0 +1,63 @@
+<ion-header translucent>
+    <ion-toolbar color="primary">
+        <ion-searchbar
+          animated="true"
+          placeholder="Buscar producto"
+          debounce="500"
+          autocorrect="on"
+          autocomplete="on"
+          (ionChange)="onChangeSearch($event)"
+          color="primary" show-cancel-button>
+      </ion-searchbar>
+      
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="add-compra-form" padding>
+      <div *ngIf="searchResult.length" class="list-search-prod">
+        <ion-list padding>
+            <ion-item *ngFor="let producto of searchResult" (tap)="productoSelect(producto)">
+                {{producto.nombre}}
+            </ion-item>
+          </ion-list>
+      </div>
+      <form [formGroup]="compraForm">
+          <ion-item>
+            <ion-label position="floating">Monto Bs. <span class="required">*</span></ion-label>
+            <ion-input formControlName="monto"
+              [(ngModel)]="montoCompra"
+              name="monto"
+              type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label position="floating">Cantidad. <span class="required">*</span></ion-label>
+              <ion-input formControlName="cantidad"
+              [(ngModel)]="cantidad"
+                name="cantidad"
+                type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-select formControlName="cambio" [(ngModel)]="cambioSelected" name="cambio" placeholder="Seleccionar el cambio" okText="Ok" cancelText="Cancelar">
+              <ion-select-option *ngFor="let cambio of cambioS.localCambios; let first = first;" [selected]="first" value="{{cambio.idcambios}}">
+                usd: {{cambio.usd}} {{cambio.date | date:'shortDate'}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </form>
+        
+        <div *ngIf="productoSelected">
+          <div>
+            Producto
+          </div>
+          <div class="image-produt">
+            <div>{{productoSelected.nombre}}</div>
+            <img [src]="getImage(productoSelected.image)">
+          </div>
+        </div>
+    
+    <p text-center>
+      <ion-button large [disabled]="!compraForm.valid || submitAttempt" expand="full" (tap)="save()" class="dismiss">Comprar</ion-button>
+    </p>
+    <p text-center>
+      <ion-button large color="danger" expand="full" (tap)="dismiss()" class="dismiss">Cerrar</ion-button>
+    </p>
+  </ion-content>

@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Precios</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list padding>
+      <ion-item>
+        <div class="title-producto">
+            {{prodS.selectProduc.nombre}}
+        </div>
+      </ion-item>
+      <ion-item *ngFor="let precio of listaPrecio">
+        <div class="item-cambio">
+          <div class="moneda">
+            <div class="usd">
+                <span class="custom-icon">Tasa: </span>
+                <span>{{precio.tasa}}</span>
+                <span> bs.</span>
+            </div>
+            <div class="tasa">
+                <ion-icon name="logo-usd"></ion-icon>
+                <span>{{precio.monto / precio.tasa}}</span>
+            </div>
+          </div>
+          <div class="date">
+            <div>
+                {{precio.date | date:'longDate'}}
+            </div>
+            <div class="total">
+                <span class="custom-icon">Bs </span>
+                {{precio.monto}}
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="showAddPrecio()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>

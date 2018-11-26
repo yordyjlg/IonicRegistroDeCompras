@@ -1,0 +1,19 @@
+.list-search-prod{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    left: 0;
+    z-index: 1;
+    top: 0;
+}
+
+.image-produt{
+    text-align: center;
+    width: 100%;
+
+    img{
+        max-width: 200px;
+        margin-top: 20px;
+    }
+}

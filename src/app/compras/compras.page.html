@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>compras</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list padding>
+      <ion-item *ngFor="let compra of comprasS.localCompras">
+        <div class="item-cambio">
+          <div style="background: #86b2ff">
+              <div style="width: 100%; text-align: right;padding-top: 5px;">
+                  {{compra.dateCompra | date:'longDate'}}
+              </div>
+              <div class="moneda">
+                <div class="usd padding-left">
+                    <span>{{compra.nombreProd}}</span>
+                </div>
+                <div class="tasa padding-left">
+                    {{compra.cantidad}}
+                </div>
+              </div>
+          </div>
+
+
+          <div class="nota" *ngIf="compra.nota">
+            {{compra.descripcionProd}}
+          </div>
+
+          <div class="label-div-container">
+            <div class="label-izquierda padding-left">
+                Precio Bs
+            </div>
+            <div class="label-derecha padding-left">
+                Precio Usd
+            </div>
+          </div>
+
+          <div class="date">
+            <div class="total izquierda padding-left">
+                {{compra.monto | number}}
+            </div>
+            <div class="total padding-left">
+                {{(compra.monto / compra.tasa) | number}}
+            </div>
+          </div>
+
+          <div class="label-div-container">
+              <div class="label-izquierda padding-left">
+                  Total Bs
+              </div>
+              <div class="label-derecha padding-left">
+                  Total Usd
+              </div>
+            </div>
+
+          <div class="cantidad-total">
+            <div class="total izquierda padding-left">
+                {{(compra.cantidad * compra.monto) | number}}
+            </div>
+            <div class="total padding-left">
+                {{(compra.cantidad * (compra.monto / compra.tasa)) | number}}
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="showAddCompra()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+
+    <!-- <div class="item-cambio">
+        <div class="moneda">
+          <div class="usd">
+              <span>{{compra.nombreProd}}</span>
+          </div>
+          <div class="tasa">
+              <ion-icon name="logo-usd"></ion-icon>
+              <span>{{compra.monto / compra.tasa}}</span>
+          </div>
+        </div>
+        <div class="nota" *ngIf="compra.nota">
+          {{compra.descripcionProd}}
+        </div>
+        <div class="date">
+          <div>
+              {{compra.dateCompra | date:'longDate'}}
+          </div>
+          <div class="total">
+              <span class="custom-icon">Bs </span>
+              {{compra.monto}}
+          </div>
+        </div>
+        <div class="cantidad-total">
+          <div>
+              <span class="custom-icon">Cantidad: </span>
+              {{compra.cantidad}}
+          </div>
+          <div class="total">
+              <span class="custom-icon">Total: </span>
+              {{compra.cantidad * compra.monto}}
+          </div>
+        </div>
+      </div> -->

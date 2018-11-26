@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            productos
+        </ion-title>
+    <ion-buttons slot="end" *ngIf="selectedProducto != null">
+      <ion-button ion-button color="danger" size="large" (click)="removeSelectedProducto()">
+        <ion-icon style="font-size: 1.8em;" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <ion-list padding>
+    <ion-item *ngFor="let producto of prodS.localProduct" 
+    [ngClass]="{'selected-list': selectedProducto === producto}" >
+    <!-- <ion-item *ngFor="let producto of prodS.localProduct" 
+    (press)="selectProducto(producto)" [ngClass]="{'selected-list': selectedProducto === producto}"> -->
+      <div class="container-product">
+        <img (click)="editProd(producto)" [src]="getImage(producto.image)">
+        <div class="container-icons">
+          <ion-icon (click)="removeProducto(producto)" class="trash" name="trash"></ion-icon>
+        </div>
+        <div (click)="editProd(producto)" class="tittle-product">
+            {{producto.nombre}}
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="showAddProducto()">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
