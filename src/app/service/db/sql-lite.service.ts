@@ -16,7 +16,7 @@ export class SqlLiteService {
     this.platform.ready().then(() => {
       console.log('create');
       this.sqlite.create({
-        name: 'teste9.db',
+        name: 'teste3.db',
         location: 'default'
       })
         .then((db: SQLiteObject) => {
@@ -246,10 +246,10 @@ export class SqlLiteService {
     });
   }
 
-  ifExistProduct(remoteKey) {
+  ifExist(tabla, remoteKey) {
     return this.isReady()
     .then(() => {
-      return this.database.executeSql(`SELECT * FROM productos WHERE remoteKey = '${remoteKey}'`, [])
+      return this.database.executeSql(`SELECT * FROM '${tabla}' WHERE remoteKey = '${remoteKey}'`, [])
         .then((data) => {
           const lists = [];
           for (let i = 0; i < data.rows.length; i++) {
@@ -261,13 +261,30 @@ export class SqlLiteService {
   }
 
   public addProducto(prod, remoteKey) {
-    return this.ifExistProduct(remoteKey).then((data: any[]) => {
+    return this.ifExist('productos', remoteKey).then((data: any[]) => {
       console.log(data);
       if (!data.length) {
         const sql = 'INSERT INTO productos ' +
         '(nombre, descripcion, image, remoteKey, sync, usersSync, operacion)' +
         ' VALUES (?, ?, ?, ?, ?, ?, ?);';
         return this.insert(sql, [prod.nombre, prod.descripcion, prod.image,
+          remoteKey, 0, 'yordy', 'insert']).then((id) => {
+            return id;
+        });
+      } else {
+        return false;
+      }
+    });
+  }
+
+  public addPrecio(prod, remoteKey) {
+    return this.ifExist('productPrecio', remoteKey).then((data: any[]) => {
+      console.log(data);
+      if (!data.length) {
+        const sql = 'INSERT INTO productPrecio ' +
+        '(productosidproductos, monto, tasa, date, remoteKey, sync, usersSync, operacion)' +
+        ' VALUES (?, ?, ?, ?, ?, ?, ?, ?);';
+        return this.insert(sql, [prod.productosidproductos, prod.monto, prod.tasa, prod.date,
           remoteKey, 0, 'yordy', 'insert']).then((id) => {
             return id;
         });
@@ -288,7 +305,7 @@ export class SqlLiteService {
     this.insert(sql, [newInfo.key, 1, idRegis]).then((id) => {
 
       newInfo.set(data, (res) => {
-        const usersSync = firebase.database().ref('usersSync ' + tabla + '/' + newInfo.key);
+        const usersSync = firebase.database().ref('usersSync' + tabla + '/' + newInfo.key);
         const user = {};
         user[data.usersSync] = true;
         usersSync.set(user, (userSync) => {

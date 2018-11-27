@@ -40,8 +40,9 @@ export class ProductoServiceService {
     const sql = 'INSERT INTO productPrecio ' +
     '(productosidproductos, monto, tasa, date, remoteKey, sync, usersSync)' +
     ' VALUES (?, ?, ?, ?, ?, ?, ?);';
-    const precio = {
+    const precio: any = {
       id: 0,
+      productosidproductos: productosidproductos,
       monto: monto,
       tasa: tasa,
       date: new Date(),
@@ -53,6 +54,7 @@ export class ProductoServiceService {
       '', 1, 'yordy']).then((id) => {
       // update list of items, and then return the added list
       precio.id = id;
+      precio.date = precio.date.toISOString();
       this.db.saveInfoToFirebase(precio, 'productPrecio', 'productosidproductos', precio.id);
       return id;
     });

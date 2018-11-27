@@ -84,7 +84,7 @@ export class AppComponent {
     });
     const precio: any[] = await this.db.selectNoSyn('productPrecio');
     pro.forEach((produc) => {
-      this.db.sendDataToFirebase(produc, 'productPrecio', 'idprodPrecio', produc.idproductos);
+      this.db.sendDataToFirebase(precio, 'productPrecio', 'idprodPrecio', produc.idproductos);
     });
   }
 
@@ -115,6 +115,26 @@ export class AppComponent {
         produ.on('value', (dataprod) => {
           console.log(dataprod.val());
           this.db.addProducto(dataprod.val(), dataprod.key).then((idSync) => {
+            console.log('SAVE: ' + idSync);
+          });
+        });
+        count = count + 1;
+      });
+      this.presentToast('Sync number: ' + count);
+    });
+    this.getproductPrecio();
+  }
+
+  getproductPrecio() {
+    const ref = firebase.database().ref('usersSyncproductPrecio');
+    const proSyn = [];
+    ref.orderByChild('yordy').equalTo(true).once('value', (snapshot) => {
+      let count = 0;
+      snapshot.forEach((childSnapshot) => {
+        const produ = firebase.database().ref('productPrecio/' + childSnapshot.key );
+        produ.on('value', (dataprod) => {
+          console.log(dataprod.val());
+          this.db.addPrecio(dataprod.val(), dataprod.key).then((idSync) => {
             console.log('SAVE: ' + idSync);
           });
         });
